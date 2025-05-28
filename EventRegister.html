@@ -1,296 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <script src="./script.js"></script>
-  <title>ReWear-Donate</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Item - Donation App</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Global Reset & Font */
+        body, h1, h2, h3, p, ul, li, input, select, textarea, button {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
+        }
 
-    body, html {
-      height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        body {
+            background-color: #f2f4f7;
+            color: #333;
+            line-height: 1.6;
+        }
 
-    .background-container {
-      position: relative;
-      min-height: 100vh;
-      width: 100%;
-      background-image: url('https://www.shutterstock.com/image-vector/sharing-clothes-people-donation-concept-600nw-1860972010.jpg'); /* Replace if needed */
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-color: rgba(255, 255, 255, 0.6); /* Soft overlay */
-      z-index: 1;
-    }
+        /* Header - MODIFIED TO MATCH YOUR IMAGE */
+        header {
+            background-color: #2c3e50; /* Dark blue-grey from your image */
+            color: #ecf0f1; /* Light text (white-ish) from your image */
+            padding: 1rem 0; /* Adjusted padding */
+            border-bottom: 5px solid #3498db; /* Blue accent from your image */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adjusted box-shadow */
+        }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 8px 8px 20px #d1d9e6, -8px -8px 20px #ffffff;
-      max-width: 600px;
-      width: 90%;
-      animation: fadeIn 0.8s ease-in-out;
-    }
+        header h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.2rem; /* Adjusted font size for consistency */
+        }
 
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 30px;
-      font-size: 2.5rem;
-      font-weight: 700;
-      position: relative;
-    }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 20px;
+            padding: 0; /* Ensure no default padding */
+            margin: 0; /* Ensure no default margin */
+        }
 
-    h1::after {
-      content: "";
-      display: block;
-      width: 80px;
-      height: 4px;
-      background: #3498db;
-      margin: 10px auto 0;
-      border-radius: 2px;
-    }
+        nav a {
+            color: #ecf0f1; /* Light text (white-ish) for links, matching your image */
+            text-decoration: none;
+            font-weight: bold; /* Bold as in your image */
+            font-size: 1.1rem; /* Adjusted font size for consistency */
+            padding: 8px 15px; /* Adjusted padding for consistency */
+            border-radius: 5px; /* Rounded corners for consistency */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        }
 
-    .form-group {
-      margin-bottom: 25px;
-      position: relative;
-    }
+        nav a:hover,
+        nav a.active { /* Added .active for current page highlighting */
+            background-color: #3498db; /* Blue highlight on hover */
+            color: #ffffff; /* White text on hover */
+        }
 
-    label {
-      font-weight: 600;
-      color: #34495e;
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1rem;
-    }
+        /* Form Section */
+        .form-section {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="number"],
-    select,
-    textarea,
-    input[type="file"] {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      background: #f3f4f7;
-      box-shadow: inset 4px 4px 10px #d1d9e6, inset -4px -4px 10px #ffffff;
-      transition: all 0.3s ease;
-    }
+        .form-section h2 {
+            margin-bottom: 20px;
+            color: #0d6efd;
+        }
 
-    input[type="file"] {
-      padding: 10px;
-    }
+        /* Form Inputs */
+        .form-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
-      background: #ffffff;
-      outline: none;
-      box-shadow: 0 0 0 2px #3498db;
-    }
+        .form-section input[type="text"],
+        .form-section input[type="number"],
+        .form-section textarea,
+        .form-section select,
+        .form-section input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            transition: border 0.3s ease;
+        }
 
-    .info-icon {
-      position: absolute;
-      right: 12px;
-      top: 38px;
-      font-size: 18px;
-      cursor: pointer;
-      color: #3498db;
-    }
+        .form-section input:focus,
+        .form-section textarea:focus,
+        .form-section select:focus {
+            border-color: #0d6efd;
+            outline: none;
+        }
 
-    .info-message {
-      display: none;
-      position: absolute;
-      top: 60px;
-      right: 0;
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
-      padding: 12px;
-      font-size: 14px;
-      border-radius: 8px;
-      width: 220px;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
-      color: #555;
-      z-index: 1;
-    }
+        /* File input tip */
+        small {
+            display: block;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 0.9rem;
+        }
 
-    .form-group:hover .info-message {
-      display: block;
-    }
+        /* Submit Button */
+        .form-section button {
+            background-color: #0d6efd;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
 
-    input[type="checkbox"] {
-      transform: scale(1.2);
-      margin-right: 10px;
-      cursor: pointer;
-    }
+        .form-section button:hover {
+            background-color: #084cdf;
+        }
 
-    .button {
-      width: 100%;
-      padding: 15px;
-      background: linear-gradient(135deg, #3498db, #2980b9);
-      color: white;
-      border: none;
-      border-radius: 30px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.4s ease;
-      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
-    }
+        /* Message Styling */
+        .form-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 500;
+            display: none;
+        }
 
-    .button:hover {
-      background: linear-gradient(135deg, #2980b9, #1f618d);
-    }
+        .form-message.success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            display: block;
+        }
 
-    .agreement {
-      font-size: 14px;
-      color: #555;
-      margin-top: 15px;
-      line-height: 1.6;
-    }
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #842029;
+            display: block;
+        }
 
-    .agreement a {
-      color: #2980b9;
-      text-decoration: none;
-      font-weight: 500;
-    }
+        /* Footer - MODIFIED TO MATCH YOUR IMAGE */
+        footer {
+            background-color: #2c3e50; /* Dark blue-grey from your image */
+            color: #ecf0f1; /* Light text (white-ish) from your image */
+            text-align: center;
+            padding: 1rem 0; /* Adjusted padding */
+            margin-top: 40px;
+            border-top: 5px solid #3498db; /* Blue accent from your image */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Adjusted box-shadow */
+        }
 
-    .agreement a:hover {
-      text-decoration: underline;
-    }
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.96);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @media screen and (max-width: 600px) {
-      .container {
-        padding: 25px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-    }
-  </style>
+        /* Responsive */
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="background-container">
-    <div class="overlay"></div>
+    <header>
+        <div class="container">
+        <center>
+        <div class="container">
+            <svg width="280" height="80" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .highlight { font: bold 36px 'Poppins', sans-serif; fill: #ddab15; }
+    .text-white { font: bold 36px 'Poppins', sans-serif; fill: #fff; }
+    .hanger { stroke: #ddab15; stroke-width: 4; fill: none; }
+  </style>
+
+  <!-- Hanger inside a circular loop -->
+  <circle cx="50" cy="50" r="40" stroke="#ddab15" stroke-width="4" fill="none" />
+  <path d="M30 45 Q50 20, 70 45 L50 70 Z" class="hanger"/>
+  <circle cx="50" cy="35" r="3" fill="#ddab15" />
+
+  <!-- Brand Text -->
+  <text x="100" y="60">
+    <tspan class="highlight">Re</tspan>
+    <tspan class="text-white">Wear</tspan>
+  </text>
+</svg></center>
+            <h1>Donate an Item</h1>
+            <nav>
+                <ul>
+                    <li><a href="/Home">Public Feed</a></li>
+                    <li><a href="/Event" class="active">Post Item</a></li>
+                     <li><a href="/Submissions.html">My Posts</a></li>
+                    <li><a href="#" id="logoutButton">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="form-section">
+            <h2>Submit Your Donation</h2>
+            <form id="donationForm" enctype="multipart/form-data">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="Books">Books</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Food">Food</option>
+                    <option value="Household">Household Items</option>
+                    <option value="Toys">Toys</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" required>
+
+                <label for="image">Image (Max 50KB):</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <small>Please ensure image is small (e.g., < 50KB) for faster uploads and compatibility.</small>
+
+                <label for="location">Location (e.g., City, specific address):</label>
+                <input type="text" id="location" name="location" required>
+
+                <button type="submit">Submit Donation</button>
+            </form>
+            <div id="donationFormMessage" class="form-message"></div>
+        </section>
+    </main>
+
+    <footer>
     <div class="container">
-      <h1>ReWear</h1>
-      <form id="event-form" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required placeholder="Enter your name" />
+        <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+            <svg width="180" height="40" viewBox="0 0 420 100" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    .highlight { font: bold 36px 'Poppins', sans-serif; fill: #ddab15; }
+                    .text-white { font: bold 36px 'Poppins', sans-serif; fill: #fff; }
+                    .hanger { stroke: #ddab15; stroke-width: 4; fill: none; }
+                </style>
+                <!-- Hanger inside a circular loop -->
+                <circle cx="50" cy="50" r="40" stroke="#ddab15" stroke-width="4" fill="none" />
+                <path d="M30 45 Q50 20, 70 45 L50 70 Z" class="hanger"/>
+                <circle cx="50" cy="35" r="3" fill="#ddab15" />
+                <!-- Brand Text -->
+                <text x="100" y="60">
+                    <tspan class="highlight">Re</tspan>
+                    <tspan class="text-white">Wear</tspan>
+                </text>
+            </svg>
+            <p>&copy; 2025 ReWear. All rights reserved.</p>
         </div>
-
-        <div class="form-group">
-          <label for="account-id">Account ID<span class="info-icon" title="Click for info">&#8505;</span></label>
-          <input type="text" id="account-id" name="userId" required placeholder="Enter your account ID" readonly />
-          <div class="info-message">The account ID will come after creating an account in the portal.</div>
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email ID</label>
-          <input type="email" id="email" name="email" required placeholder="Enter your email address" />
-        </div>
-
-        <div class="form-group">
-          <label for="mobile">Mobile Number</label>
-          <input type="tel" id="mobile" name="mobile" required placeholder="Enter your mobile number" />
-        </div>
-
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input type="text" id="location" name="location" required placeholder="Enter your location" />
-        </div>
-
-        <div class="form-group">
-          <label for="image">Upload Image</label>
-          <input type="file" id="image" name="image" accept="image/*" required />
-        </div>
-
-        <div class="form-group">
-          <label>
-            <input type="checkbox" id="agree" name="agree" required />
-            I agree to the <a href="#">terms and conditions</a>
-            <div class="info-message">If once donation is posted it connot be deleted || The post is publicly Visible || Thank You</div>
-          </label>
-        </div>
-
-        <button type="submit" class="button">Submit</button>
-      </form>
     </div>
-  </div>
+</footer>
+    <script>
+        // IMPORTANT: Replace with your deployed backend URL
+        const API_BASE_URL = 'http://localhost:5000'; // Example: 'http://YOUR_EC2_PUBLIC_IP:5000' or 'https://api.yourdomain.com'
 
-  <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      const data = await valid();
-      document.getElementById("name").value = data.username;
-      document.getElementById("account-id").value = data.userId.substring(0, 6);
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Optional: You might want to validate user on this page too,
+            // or rely on the backend's authenticateUser middleware.
+            // For now, it's not strictly necessary for this page to fetch user info,
+            // but the logout button needs the token.
+        });
 
-      const userId = data.userId;
-      const form = document.getElementById("event-form");
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            localStorage.removeItem('jwtToken');
+            window.location.href = '/Login';
+        });
 
-      form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+        document.getElementById('donationForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
 
-  const formData = new FormData();
-  formData.append("name", document.getElementById("name").value);
-  formData.append("userId", userId);
-  formData.append("email", document.getElementById("email").value);
-  formData.append("mobile", document.getElementById("mobile").value);
-  formData.append("location", document.getElementById("location").value);
-  formData.append("image", document.getElementById("image").files[0]);
+            const token = localStorage.getItem('jwtToken');
+            const formMessage = document.getElementById('donationFormMessage');
 
-  const response = await fetch("/api/donate", {
-    method: "POST",
-    body: formData,
-  });
+            if (!token) {
+                formMessage.textContent = 'You must be logged in to submit a donation. Redirecting to login.';
+                formMessage.className = 'form-message error';
+                setTimeout(() => window.location.href = '/Login', 2000);
+                return;
+            }
 
-  if (response.ok) {
-    alert("Data successfully submitted!");
-    window.location.href = "/Home";
-  } else {
-    const data = await response.json();
-    console.error(data.message);
-    alert(data.message);
-    document.getElementById("image").value = "";
-  }
-});
+            const imageFile = document.getElementById('image').files[0];
+            if (imageFile) {
+                // Client-side check for image size (approximate)
+                const MAX_FILE_SIZE_BYTES = 50 * 1024; // 50 KB
+                if (imageFile.size > MAX_FILE_SIZE_BYTES) {
+                    formMessage.textContent = `Image file is too large (${(imageFile.size / 1024).toFixed(2)} KB). Max allowed: 50 KB.`;
+                    formMessage.className = 'form-message error';
+                    return;
+                }
+            }
 
-    });
-  </script>
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('category', document.getElementById('category').value);
+            formData.append('quantity', document.getElementById('quantity').value);
+            if (imageFile) {
+                formData.append('image', imageFile);
+            }
+            // Ensure location is sent as a string (JSON stringified map on backend)
+            formData.append('location', JSON.stringify({ text: document.getElementById('location').value }));
+
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/donate`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}` // IMPORTANT: Send the token
+                    },
+                    body: formData // FormData automatically sets Content-Type to multipart/form-data
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    formMessage.textContent = data.message;
+                    formMessage.className = 'form-message success';
+                    document.getElementById('donationForm').reset();
+                    // Optional: Redirect to userhome or my submissions after successful donation
+                    // setTimeout(() => window.location.href = '/Home', 1500);
+                } else {
+                    formMessage.textContent = `Error: ${data.message || 'Unknown error'}`;
+                    formMessage.className = 'form-message error';
+                }
+            } catch (error) {
+                console.error('Error submitting donation:', error);
+                formMessage.textContent = 'An unexpected error occurred. Please try again.';
+                formMessage.className = 'form-message error';
+            }
+        });
+    </script>
 </body>
 </html>
