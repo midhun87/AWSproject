@@ -21,8 +21,6 @@ const LeaderBoard = mongoose.model('LeaderBoard', new mongoose.Schema({
     scores: { type: mongoose.Schema.Types.Mixed, required: true },
 }), 'LeaderBoard');
 
-// Schema for claims that are EMBEDDED within EventSubmission documents
-// This schema DOES NOT need a donationId field, as it's part of the donation document itself.
 const embeddedClaimSchema = new mongoose.Schema({
     claimerName: { type: String, required: true },
     claimerMobile: { type: String, required: true },
@@ -32,8 +30,6 @@ const embeddedClaimSchema = new mongoose.Schema({
     claimedAt: { type: Date, default: Date.now }
 });
 
-// Schema for a STANDALONE Claim collection (if you choose to use it)
-// This schema DOES need a donationId to reference the EventSubmission it's claiming.
 const standaloneClaimSchema = new mongoose.Schema({
     donationId: { type: mongoose.Schema.Types.ObjectId, ref: 'EventSubmission', required: true },
     claimerName: { type: String, required: true },
@@ -44,20 +40,23 @@ const standaloneClaimSchema = new mongoose.Schema({
     claimedAt: { type: Date, default: Date.now }
 });
 
-const Claim = mongoose.model('Claim', standaloneClaimSchema, 'Claims'); // This is your standalone Claim model
+const Claim = mongoose.model('Claim', standaloneClaimSchema, 'Claims');
 
-// Updated EventSubmission to store image as Buffer and add claims array
+// Updated EventSubmission Schema
 const EventSubmission = mongoose.model('EventSubmission', new mongoose.Schema({
     userId: { type: String, required: true },
     name: { type: String, required: true },
-    email: { type: String, required: true },
-    mobile: { type: String, required: true },
     location: { type: String, required: true },
+    category: { type: String, required: true, enum: ['Men', 'Women', 'Kids', 'Accessories'] },
+    type: { type: String, required: true },
+    quantity: { type: Number, required: true, min: 1 },
     image: {
-        data: { type: Buffer, required: true },      // Binary data
-        contentType: { type: String, required: true } // MIME type
+        data: { type: Buffer, required: true },
+        contentType: { type: String, required: true }
     },
-    claims: [embeddedClaimSchema] // Use the embeddedClaimSchema here
+    claims: [embeddedClaimSchema],
+    isClaimed: { type: Boolean, default: false },
+    isRestricted: { type: Boolean, default: false } // NEW FIELD: for soft delete/restriction
 }, { timestamps: true }), 'EventSubmissions');
 
 module.exports = { Users, LeaderBoard, EventSubmission, Claim };
