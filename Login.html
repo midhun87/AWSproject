@@ -3,158 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReWear Login</title>
-    <script src="./script.js"></script>
-   <style>
-    /* Reset and global styles */
+    <title>Login - Donation App</title>
+<style>
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body and background */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #efeee6, #f1da36);
-    min-height: 100vh;
+    background: linear-gradient(135deg, #f6f8ff, #dfe9f3);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    padding-top: 100px;
-    overflow-x: hidden;
-    color: #333;
+    min-height: 100vh;
+    padding-top: 120px;
 }
 
 /* Header */
 header {
-    width: 100%;
-    background-color: #ffffffcc;
-    backdrop-filter: blur(10px);
-    padding: 20px 0;
     position: fixed;
     top: 0;
-    left: 0;
-    text-align: center;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+    text-align: center;
     z-index: 10;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 28px;
+    font-size: 30px;
     color: #1d3557;
-    letter-spacing: 1px;
+    margin-bottom: 5px;
 }
 
-/* Login container */
-.login-container {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(18px);
-    border-radius: 20px;
-    padding: 50px 40px;
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #1d3557;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: #457b9d;
+}
+
+/* Form container */
+.form-section {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
     max-width: 420px;
-    width: 90%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    animation: fadeInUp 0.8s ease;
+    animation: fadeIn 0.8s ease-in-out;
     text-align: center;
 }
 
-.login-container:hover {
-    transform: scale(1.01);
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
-}
-
-.login-container h2 {
-    font-size: 32px;
-    color: #2c3e50;
+.form-section h2 {
     margin-bottom: 25px;
+    color: #2c3e50;
+    font-size: 28px;
 }
 
 /* Input fields */
-.input-group {
-    position: relative;
-    margin-bottom: 30px;
+.form-section input {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: border 0.3s;
 }
 
-.input-group input {
-    width: 100%;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    border-radius: 12px;
-    background: #f0f4f8;
-    color: #333;
+.form-section input:focus {
+    border-color: #457b9d;
     outline: none;
-    transition: box-shadow 0.3s ease;
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1), inset -2px -2px 5px #ffffff;
 }
 
-.input-group input:focus {
-    box-shadow: 0 0 0 3px rgba(100, 149, 237, 0.3);
-}
-
-.input-group label {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
-    font-size: 16px;
-    transition: 0.3s;
-    pointer-events: none;
-}
-
-.input-group input:focus + label,
-.input-group input:valid + label {
-    top: -10px;
-    font-size: 13px;
-    color: #1d3557;
-    background: #fff;
-    padding: 0 5px;
-}
-
-/* Button */
-button {
+/* Submit button */
+.form-section button {
     width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 12px;
+    padding: 14px;
     background: linear-gradient(135deg, #457b9d, #1d3557);
-    color: #fff;
+    color: white;
     font-size: 16px;
-    font-weight: 600;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
-button:hover {
+.form-section button:hover {
     background: linear-gradient(135deg, #1d3557, #457b9d);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Links */
-.signup-link {
-    margin-top: 25px;
+/* Footer */
+footer {
+    margin-top: 60px;
+    text-align: center;
+    color: #777;
     font-size: 14px;
-    color: #444;
+    padding: 20px 10px;
 }
 
-.signup-link a {
-    color: #1d3557;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.signup-link a:hover {
-    text-decoration: underline;
+/* Message styles */
+.message {
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 14px;
 }
 
 /* Animation */
-@keyframes fadeInUp {
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -164,66 +144,107 @@ button:hover {
 
 /* Responsive */
 @media (max-width: 480px) {
-    .login-container {
-        padding: 35px 25px;
+    .form-section {
+        padding: 30px 20px;
     }
 
     header h1 {
-        font-size: 22px;
+        font-size: 24px;
     }
 }
 
 </style>
-
-</head>
+     </head>
 <body>
     <header>
-        <h1>ReWear</h1>
+        <div class="container">
+
+            <center><svg width="280" height="80" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .highlight { font: bold 36px 'Poppins', sans-serif; fill: #050505; }
+    .text-white { font: bold 36px 'Poppins', sans-serif; fill: #0d0d0d; }
+    .hanger { stroke: #ddab15; stroke-width: 4; fill: none; }
+  </style>
+
+  <!-- Hanger inside a circular loop -->
+  <circle cx="50" cy="50" r="40" stroke="#ddab15" stroke-width="4" fill="none" />
+  <path d="M30 45 Q50 20, 70 45 L50 70 Z" class="hanger"/>
+  <circle cx="50" cy="35" r="3" fill="#ddab15" />
+
+  <!-- Brand Text -->
+  <text x="100" y="60">
+    <tspan class="highlight">Re</tspan>
+    <tspan class="text-white">Wear</tspan>
+  </text>
+</svg></center>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/Signup">Sign Up</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <div class="login-container">
-        <h2>Welcome</h2>
-        <h2>Sign in</h2>
-        <form id="loginpost">
-            <div class="input-group">
+
+    <main class="container">
+        <section class="form-section">
+            <h2>User Login</h2>
+            <form id="loginForm">
+                <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
-                <label for="email">Email</label>
-            </div>
-            <div class="input-group">
+
+                <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
-                <label for="password">Password</label>
-            </div>
-            <button type="submit">Login</button>
-            <div class="signup-link">
-                <p>No account? <a href="/Signup">Sign Up!</a></p>
-                <p>Back to <a href="/">Home</a></p>
-            </div>
-        </form>
-    </div>
+
+                <button type="submit">Login</button>
+            </form>
+            <p id="loginMessage" class="message"></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Donation App. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        document.getElementById('loginpost').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // IMPORTANT: Replace with your deployed backend URL
+        const API_BASE_URL = 'http://localhost:5000'; // Example: 'http://YOUR_EC2_PUBLIC_IP:5000' or 'https://api.yourdomain.com'
 
-            const email = e.target.email.value;
-            const password = e.target.password.value;
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('loginMessage');
 
             try {
-                const response = await fetch('/login', {
+                const response = await fetch(`${API_BASE_URL}/login`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
                 });
 
                 const data = await response.json();
-                if (response.ok) {
-                    localStorage.setItem('token', data.token);
-                    window.location.href = '/Home';
-                } else {
-                    alert(data.message);
-                }
 
+                if (response.ok) {
+                    localStorage.setItem('jwtToken', data.token); // Store the token
+                    messageElement.textContent = 'Login successful! Redirecting...';
+                    messageElement.style.color = 'green';
+                    setTimeout(() => {
+                        window.location.href = '/Home'; // Redirect to user home page
+                    }, 1000);
+                } else {
+                    messageElement.textContent = data.message || 'Login failed. Please check your credentials.';
+                    messageElement.style.color = 'red';
+                }
             } catch (error) {
-                alert('An error occurred. Please try again.');
+                console.error('Error during login:', error);
+                messageElement.textContent = 'An error occurred during login. Please try again later.';
+                messageElement.style.color = 'red';
             }
         });
     </script>
