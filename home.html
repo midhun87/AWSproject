@@ -197,7 +197,26 @@ footer a:hover {
 
 <body>
   <header class="navbar">
-    <h1>ReWear</h1>
+       <center><svg width="280" height="80" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .highlight { font: bold 36px 'Poppins', sans-serif; fill: #050505; }
+    .text-white { font: bold 36px 'Poppins', sans-serif; fill: #0d0d0d; }
+    .hanger { stroke: #ddab15; stroke-width: 4; fill: none; }
+  </style>
+
+  <!-- Hanger inside a circular loop -->
+  <circle cx="50" cy="50" r="40" stroke="#ddab15" stroke-width="4" fill="none" />
+  <path d="M30 45 Q50 20, 70 45 L50 70 Z" class="hanger"/>
+  <circle cx="50" cy="35" r="3" fill="#ddab15" />
+
+  <!-- Brand Text -->
+  <text x="100" y="60">
+    <tspan class="highlight">Re</tspan>
+    <tspan class="text-white">Wear</tspan>
+  </text>
+</svg></center>
+<br>
+
     <div class="auth-buttons">
       <a href="/Login">Login</a>
       <a href="/Signup">Signup</a>
